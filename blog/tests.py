@@ -1,14 +1,10 @@
-from pytest_django.asserts import assertContains
+from pytest_django.asserts import assertTemplateUsed
 
 
-def test_index_view_can_be_reached(client):
+def test_index_view_uses_correct_template(client):
     """
     Test that the index view can be reached.
     """
     response = client.get("/")
     assert response.status_code == 200
-
-
-def test_index_view_content(client):
-    response = client.get("/")
-    assertContains(response, "<title>Test Title</title>")
+    assertTemplateUsed(response, "blog/index.html")

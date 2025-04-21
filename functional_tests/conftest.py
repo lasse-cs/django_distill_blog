@@ -6,6 +6,7 @@ from django.core.management import call_command
 @pytest.fixture(scope="session")
 def server_url():
     # In future, might be nice to autolaunch the server here
+    # currently it is launched with something like `uv run -m http.server 8080 -d ./output/`
     return "http://localhost:8080/"
 
 
