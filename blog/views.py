@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from blog.models import Article
 
 
 def index(request):
-    return render(request, "blog/index.html")
+    articles = Article.objects.all()
+    return render(request, "blog/index.html", {"articles": articles})

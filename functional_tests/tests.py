@@ -2,7 +2,7 @@ import re
 from playwright.sync_api import expect
 
 
-def test_index_page(page, server_url, distill):
+def test_index_page(page, server_url, distill, articles):
     # There is a great new blog in town
     # L goes to visit it:
     page.goto(server_url)
@@ -15,14 +15,23 @@ def test_index_page(page, server_url, distill):
     expect(title).to_be_visible()
 
     # There is a list of articles
+    article_list = page.get_by_role("article")
+    expect(article_list).to_have_count(len(articles))
+    for article in articles:
+        # Each article has a title
+        title = article_list.get_by_role("heading", name=article.title)
+        expect(title).to_be_visible()
 
-    # Each article has a title
-    # Each article has a date
-    # The title of each article is a link
+        # Each article has a content
+        content = article_list.get_by_text(article.content)
+        expect(content).to_be_visible()
+
+        # Each article has a link to the article
+        link = article_list.get_by_role("link", name=article.title)
+        expect(link).to_be_visible()
 
     # Clicking on the title of an article takes him to a dedicated page for the
     # article
 
     # The article page has the title of the article
     # The article page has the content of the article
-    # The article page has the date of the article

@@ -8,6 +8,14 @@
     <body>
         <main>
             <h1>Blog</h1>
+            {% for article in articles %}
+                <article>
+                    <a href="#">
+                        <h2>{{ article.title }}</h2>
+                    </a>
+                    <p>{{ article.content }}</p>
+                </article>
+            {% endfor %}
         </main>
     </body>
 </html>
