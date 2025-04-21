@@ -1,21 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Blog</title>
-    </head>
-    <body>
-        <main>
-            <h1>Blog</h1>
-            {% for article in articles %}
-                <article>
-                    <a href="{{ article.get_absolute_url }}">
-                        <h2>{{ article.title }}</h2>
-                    </a>
-                    <p>{{ article.content }}</p>
-                </article>
-            {% endfor %}
-        </main>
-    </body>
-</html>
+{% extends 'blog/base.html' %}
+{% block title %}
+    Blog
+{% endblock title %}
+{% block main-content %}
+    <h1>Blog</h1>
+    {% for article in articles %}
+        <article>
+            <a href="{{ article.get_absolute_url }}">
+                <h2>{{ article.title }}</h2>
+            </a>
+            <p>{{ article.content }}</p>
+        </article>
+    {% endfor %}
+{% endblock main-content %}

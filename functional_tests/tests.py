@@ -40,6 +40,7 @@ def test_index_page(page, server_url, distill, articles):
     expect(page).to_have_title(re.compile(first_article.title))
     title = page.get_by_role("heading", name=first_article.title)
     expect(title).to_be_visible()
+
     # The article page has the content of the article
     content = page.get_by_text(first_article.content)
     expect(content).to_be_visible()
