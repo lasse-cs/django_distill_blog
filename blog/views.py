@@ -7,6 +7,6 @@ def index(request):
     return render(request, "blog/index.html", {"articles": articles})
 
 
-def article(request, article_id):
-    article = Article.objects.get(id=article_id)
+def article(request, slug):
+    article = Article.objects.get(pk=slug)
     return render(request, "blog/article.html", {"article": article})

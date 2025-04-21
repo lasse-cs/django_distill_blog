@@ -8,6 +8,7 @@ def articles(transactional_db):
     articles = []
     for i in range(5):
         article = Article.objects.create(
+            slug=f"slug-{i}",
             title=f"Article {i}",
             content=f"Content of article {i}",
         )

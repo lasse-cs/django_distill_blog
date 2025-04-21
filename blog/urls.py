@@ -9,13 +9,13 @@ def get_all_articles():
     This function is used to generate static files for all articles.
     """
     for article in Article.objects.all():
-        yield {"article_id": article.id}
+        yield {"slug": article.slug}
 
 
 urlpatterns = [
     distill_path("", views.index, name="index", distill_file="index.html"),
     distill_path(
-        "article/<int:article_id>.html",
+        "article/<slug:slug>.html",
         views.article,
         name="article",
         distill_func=get_all_articles,

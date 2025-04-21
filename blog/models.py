@@ -3,8 +3,9 @@ from django.urls import reverse
 
 
 class Article(models.Model):
-    title = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=50, primary_key=True)
+    title = models.CharField(max_length=50)
     content = models.TextField()
 
     def get_absolute_url(self):
-        return reverse("article", args=[self.id])
+        return reverse("article", args=[self.slug])
