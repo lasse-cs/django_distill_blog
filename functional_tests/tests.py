@@ -10,8 +10,8 @@ def test_index_page(page, server_url, distill, articles):
     # He notices that it has Blog in the title
     expect(page).to_have_title(re.compile("Blog"))
 
-    # He is also notices that there is a heading with the name of the blog
-    title = page.get_by_role("heading", name="Blog")
+    # He is also notices that there is a showing that this lists the articles
+    title = page.get_by_role("heading", name="Articles")
     expect(title).to_be_visible()
 
     # There is a list of articles
@@ -44,3 +44,15 @@ def test_index_page(page, server_url, distill, articles):
     # The article page has the content of the article
     content = page.get_by_text(first_article.content)
     expect(content).to_be_visible()
+
+    # There is a navbar
+    navbar = page.get_by_role("navigation", name="Main Navigation")
+    expect(navbar).to_be_visible()
+
+    # With a link to the index page
+    index_link = navbar.get_by_role("link", name="Blog")
+    index_link.click()
+
+    # The index page has the title of the blog
+    expect(page).to_have_title(re.compile("Blog"))
+    title = page.get_by_role("heading", name="Articles")

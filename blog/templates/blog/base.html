@@ -6,11 +6,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>
             {% block title %}
+                Blog
             {% endblock title %}
         </title>
         <link rel="stylesheet" href="{% static 'css/pico.pumpkin.min.css' %}">
     </head>
     <body>
+        {% block header %}
+            <header class="container">
+                <nav aria-label="Main Navigation">
+                    <ul>
+                        <li>
+                            <a href="{% url 'index' %}">
+                                <h2>Blog</h2>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+        {% endblock header %}
         <main class="container">
             {% block main-content %}
             {% endblock main-content %}

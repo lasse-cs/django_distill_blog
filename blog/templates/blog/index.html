@@ -1,14 +1,14 @@
 {% extends 'blog/base.html' %}
-{% block title %}
-    Blog
-{% endblock title %}
 {% block main-content %}
-    <h1>Blog</h1>
+    <h1>All Articles</h1>
+    <hr>
     {% for article in articles %}
         <article>
-            <a href="{{ article.get_absolute_url }}">
-                <h2>{{ article.title }}</h2>
-            </a>
+            <header>
+                <a href="{{ article.get_absolute_url }}">
+                    <h2>{{ article.title }}</h2>
+                </a>
+            </header>
             <p>{{ article.content }}</p>
         </article>
     {% endfor %}
