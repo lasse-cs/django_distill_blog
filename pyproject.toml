@@ -9,6 +9,10 @@ dependencies = [
     "django-distill>=3.2.7",
 ]
 
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE="distill_blog.settings"
+python_files = ["test_*.py", "*_test.py", "tests.py"]
+
 [dependency-groups]
 dev = [
     "djlint>=1.36.4",
