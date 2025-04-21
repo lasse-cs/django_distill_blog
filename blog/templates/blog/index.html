@@ -10,7 +10,7 @@
             <h1>Blog</h1>
             {% for article in articles %}
                 <article>
-                    <a href="#">
+                    <a href="{{ article.get_absolute_url }}">
                         <h2>{{ article.title }}</h2>
                     </a>
                     <p>{{ article.content }}</p>

@@ -32,6 +32,14 @@ def test_index_page(page, server_url, distill, articles):
 
     # Clicking on the title of an article takes him to a dedicated page for the
     # article
+    first_article = articles[0]
+    article_link = page.get_by_role("link", name=first_article.title)
+    article_link.click()
 
     # The article page has the title of the article
+    expect(page).to_have_title(re.compile(first_article.title))
+    title = page.get_by_role("heading", name=first_article.title)
+    expect(title).to_be_visible()
     # The article page has the content of the article
+    content = page.get_by_text(first_article.content)
+    expect(content).to_be_visible()
