@@ -15,4 +15,4 @@ wheels/
 # Database
 db.sqlite3
 output/
-static/
+static_output/
