@@ -1,0 +1,15 @@
+<nav aria-label="Main Navigation">
+    <ul>
+        <li>
+            <a href="{% url 'index' %}">Blog</a>
+        </li>
+    </ul>
+    {% if pages %}
+        <ul>
+            {% for page in pages %}
+                <li>
+                    <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+                </li>
+            {% endfor %}
+        {% endif %}
+    </nav>

@@ -12,6 +12,7 @@ def test_index_view_uses_correct_template(client):
     response = client.get("/")
     assert response.status_code == 200
     assertTemplateUsed(response, "blog/index.html")
+    assertTemplateUsed(response, "blog/tags/nav.html")
 
 
 def test_index_view_has_all_articles_in_context(client, articles):
@@ -34,6 +35,7 @@ def test_article_view_uses_correct_template(client):
     response = client.get(article.get_absolute_url())
     assert response.status_code == 200
     assertTemplateUsed(response, "blog/article.html")
+    assertTemplateUsed(response, "blog/tags/nav.html")
 
 
 def test_article_view_passes_article_to_template(client):
@@ -46,7 +48,7 @@ def test_article_view_passes_article_to_template(client):
     assert response.context["article"] == article
 
 
-def test_nav_view_uses_correct_template(client):
+def test_nav_view_uses_correct_templates(client):
     """
     Test that the nav view can be reached.
     """
@@ -56,6 +58,7 @@ def test_nav_view_uses_correct_template(client):
     response = client.get("/about.html")
     assert response.status_code == 200
     assertTemplateUsed(response, "blog/nav_page.html")
+    assertTemplateUsed(response, "blog/tags/nav.html")
 
 
 def test_nav_view_passes_nav_page_to_template(client):
