@@ -14,3 +14,8 @@ class Page(models.Model):
 class Article(Page):
     def get_absolute_url(self):
         return reverse("article", args=[self.slug])
+
+
+class NavPage(Page):
+    def get_absolute_url(self):
+        return reverse("nav_page", args=[self.slug])

@@ -1,6 +1,6 @@
 import pytest
 from django.core.exceptions import ValidationError
-from blog.models import Article
+from blog.models import Article, NavPage
 
 
 pytestmark = pytest.mark.django_db
@@ -49,3 +49,13 @@ def test_article_get_absolute_url():
     """
     article = Article.objects.create(slug="slug", title="Title", content="Content")
     assert article.get_absolute_url() == f"/article/{article.slug}.html"
+
+
+def test_nav_page_model():
+    """
+    Test the basic properties of the nav page model.
+    """
+    nav_page = NavPage.objects.create(slug="slug", title="Title", content="Content")
+    assert nav_page.slug == "slug"
+    assert nav_page.title == "Title"
+    assert nav_page.content == "Content"

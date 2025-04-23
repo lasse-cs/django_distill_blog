@@ -22,6 +22,6 @@ def collect_static():
     call_command("collectstatic", "--no-input", "--clear")
 
 
-@pytest.fixture(scope="function")
-def distill(collect_static, articles):
+@pytest.fixture(scope="function", autouse=True)
+def distill(collect_static, articles, about_page):
     call_command("distill-local", "--quiet", "--force")

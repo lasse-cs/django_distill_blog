@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from blog.models import Article
+from blog.models import Article, NavPage
 
 
 def index(request):
@@ -10,3 +10,8 @@ def index(request):
 def article(request, slug):
     article = Article.objects.get(pk=slug)
     return render(request, "blog/article.html", {"article": article})
+
+
+def nav_page(request, slug):
+    nav_page = NavPage.objects.get(pk=slug)
+    return render(request, "blog/nav_page.html", {"page": nav_page})

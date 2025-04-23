@@ -1,6 +1,6 @@
 import pytest
 
-from blog.models import Article
+from blog.models import Article, NavPage
 
 
 @pytest.fixture
@@ -14,3 +14,12 @@ def articles(transactional_db):
         )
         articles.append(article)
     return articles
+
+
+@pytest.fixture
+def about_page(transactional_db):
+    return NavPage.objects.create(
+        slug="about",
+        title="About",
+        content="This is the about page.",
+    )
