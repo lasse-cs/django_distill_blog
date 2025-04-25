@@ -1,6 +1,6 @@
 import pytest
 
-from blog.models import Article, NavPage
+from blog.models import Article, NavPage, Tag
 
 
 @pytest.fixture
@@ -13,6 +13,32 @@ def articles(transactional_db):
             content=f"Content of article {i}",
         )
         articles.append(article)
+    return articles
+
+
+@pytest.fixture
+def tags(transactional_db):
+    tags = []
+    for i in range(2):
+        tag = Tag.objects.create(
+            slug=f"tag-{i}",
+            name=f"Tag {i}",
+        )
+        tags.append(tag)
+
+    return tags
+
+
+@pytest.fixture
+def tagged_articles(transactional_db, articles, tags):
+    for i in range(5):
+        article = articles[i]
+        if i % 2 == 0:
+            article.tags.add(tags[0])
+        if i % 3 == 0:
+            article.tags.add(tags[1])
+        article.save()
+        article.refresh_from_db()
     return articles
 
 

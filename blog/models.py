@@ -12,6 +12,8 @@ class Page(models.Model):
 
 
 class Article(Page):
+    tags = models.ManyToManyField("Tag", blank=True)
+
     def get_absolute_url(self):
         return reverse("article", args=[self.slug])
 
@@ -19,3 +21,8 @@ class Article(Page):
 class NavPage(Page):
     def get_absolute_url(self):
         return reverse("nav_page", args=[self.slug])
+
+
+class Tag(models.Model):
+    slug = models.SlugField(max_length=50, primary_key=True)
+    name = models.CharField(max_length=50)

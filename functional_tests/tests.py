@@ -98,3 +98,42 @@ def test_main_navigation(page, server_url, about_page):
     expect(page).to_have_title(re.compile("Blog"))
     title = page.get_by_role("heading", name="All Articles")
     expect(title).to_be_visible()
+
+
+def test_tags(page, server_url, tagged_articles):
+    # L goes to visit the blog page
+    page.goto(server_url)
+
+    # He sees that the articles have tags
+    article_list = page.get_by_role("article")
+    for article in tagged_articles:
+        # Each article has a list of tags
+        article_element = article_list.filter(has_text=article.title)
+        tags = article_element.get_by_role("listitem")
+        expect(tags).to_have_count(len(article.tags.all()))
+        for tag in article.tags.all():
+            # Each tag has a link to the tag page
+            tag_link = tags.get_by_role("link", name=tag.name)
+            expect(tag_link).to_be_visible()
+
+    # Going to the article page, the tags are also visible there
+    first_article = tagged_articles[0]
+    article_link = page.get_by_role("link", name=first_article.title)
+    article_link.click()
+
+    # The article page has the title of the article
+    expect(page).to_have_title(re.compile(first_article.title))
+
+    tags = page.get_by_role("article").get_by_role("listitem")
+    for tag in first_article.tags.all():
+        tag_link = tags.get_by_role("link", name=tag.name)
+        expect(tag_link).to_be_visible()
+
+    # Clicking on a tag, takes him to a page that lists the articles with that tag.
+    # The page has the title of the tag
+    # The page has a list of articles with that tag
+
+    # The page has a link to the index page
+
+    # Going back to the index page, he can also go to the tag page from there
+    # by clicking on the tag in the article list.

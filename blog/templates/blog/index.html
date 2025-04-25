@@ -10,6 +10,16 @@
                 </a>
             </header>
             <p>{{ article.content }}</p>
+            <footer>
+                <h3>Tags:</h3>
+                <ul>
+                    {% for tag in article.tags.all %}
+                        <li>
+                            <a href="">{{ tag.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </footer>
         </article>
     {% endfor %}
 {% endblock main-content %}
