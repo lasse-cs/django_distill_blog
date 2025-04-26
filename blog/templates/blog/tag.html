@@ -1,0 +1,6 @@
+{% extends 'blog/base.html' %}
+{% block main-content %}
+    <h1>Articles tagged "{{ tag.name }}"</h1>
+    <hr>
+    {% include 'blog/includes/article_list.html' with articles=tag.article_set.all %}
+{% endblock main-content %}

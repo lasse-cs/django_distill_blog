@@ -70,6 +70,14 @@ def test_tag_model():
     assert tag.name == "Tag"
 
 
+def test_tag_get_absolute_url():
+    """
+    Test the get_absolute_url method of the tag model.
+    """
+    tag = Tag.objects.create(slug="tag", name="Tag")
+    assert tag.get_absolute_url() == f"/tag/{tag.slug}.html"
+
+
 def test_tag_slug_required():
     """
     Test that the tag slug is required

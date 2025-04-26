@@ -1,6 +1,6 @@
 from django_distill import distill_path
 from blog import views
-from blog.models import Article, NavPage
+from blog.models import Article, NavPage, Tag
 
 
 def get_all_articles():
@@ -10,6 +10,15 @@ def get_all_articles():
     """
     for article in Article.objects.all():
         yield {"slug": article.slug}
+
+
+def get_all_tags():
+    """
+    Function to get all tags for distillation.
+    This function is used to generate static files for all tags.
+    """
+    for tag in Tag.objects.all():
+        yield {"slug": tag.slug}
 
 
 def get_all_nav_pages():
@@ -28,6 +37,12 @@ urlpatterns = [
         views.article,
         name="article",
         distill_func=get_all_articles,
+    ),
+    distill_path(
+        "tag/<slug:slug>.html",
+        views.tag,
+        name="tag",
+        distill_func=get_all_tags,
     ),
     distill_path(
         "<slug:slug>.html",

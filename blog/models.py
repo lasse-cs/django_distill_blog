@@ -26,3 +26,6 @@ class NavPage(Page):
 class Tag(models.Model):
     slug = models.SlugField(max_length=50, primary_key=True)
     name = models.CharField(max_length=50)
+
+    def get_absolute_url(self):
+        return reverse("tag", args=[self.slug])

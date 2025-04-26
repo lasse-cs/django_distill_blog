@@ -130,10 +130,43 @@ def test_tags(page, server_url, tagged_articles):
         expect(tag_link).to_be_visible()
 
     # Clicking on a tag, takes him to a page that lists the articles with that tag.
-    # The page has the title of the tag
+    first_tag = first_article.tags.all()[0]
+    tags.get_by_role("link", name=first_tag.name).click()
+
+    # The tag page has a heading with the name of the tag
+    title = page.get_by_role("heading", name=f'Articles tagged "{first_tag.name}"')
+    expect(title).to_be_visible()
     # The page has a list of articles with that tag
+    article_list = page.get_by_role("article")
+    expect(article_list).to_have_count(len(first_tag.article_set.all()))
+    for article in first_tag.article_set.all():
+        # Each article has a title
+        title = article_list.get_by_role("heading", name=article.title)
+        expect(title).to_be_visible()
+
+        # Each article has a content
+        content = article_list.get_by_text(article.content)
+        expect(content).to_be_visible()
 
     # The page has a link to the index page
+    index_link = page.get_by_role("link", name="Blog")
+    expect(index_link).to_be_visible()
+    index_link.click()
+
+    # He is taken back to the index page
+    expect(page).to_have_title(re.compile("Blog"))
+    title = page.get_by_role("heading", name="All Articles")
+    expect(title).to_be_visible()
 
     # Going back to the index page, he can also go to the tag page from there
     # by clicking on the tag in the article list.
+    article_list = page.get_by_role("article")
+    first_article = tagged_articles[0]
+    article_element = article_list.filter(has_text=first_article.title)
+    tags = article_element.get_by_role("listitem")
+    first_tag = first_article.tags.all()[0]
+    tags.get_by_role("link", name=first_tag.name).click()
+
+    # The tag page has a heading with the name of the tag
+    title = page.get_by_role("heading", name=f'Articles tagged "{first_tag.name}"')
+    expect(title).to_be_visible()

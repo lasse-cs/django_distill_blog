@@ -1,6 +1,6 @@
 import pytest
 from pytest_django.asserts import assertTemplateUsed
-from blog.models import Article, NavPage
+from blog.models import Article, NavPage, Tag
 
 pytestmark = pytest.mark.django_db
 
@@ -71,3 +71,24 @@ def test_nav_view_passes_nav_page_to_template(client):
     response = client.get(nav_page.get_absolute_url())
     assert "page" in response.context
     assert response.context["page"] == nav_page
+
+
+def test_tag_view_uses_correct_template(client, tags):
+    """
+    Test that the tag view can be reached.
+    """
+    tag = Tag.objects.create(slug="tag", name="Tag")
+    response = client.get(tag.get_absolute_url())
+    assert response.status_code == 200
+    assertTemplateUsed(response, "blog/tag.html")
+    assertTemplateUsed(response, "blog/tags/nav.html")
+
+
+def test_tag_view_passes_tag_to_template(client, tags):
+    """
+    Test that the tag view passes the correct tag to the template.
+    """
+    tag = Tag.objects.create(slug="tag", name="Tag")
+    response = client.get(tag.get_absolute_url())
+    assert "tag" in response.context
+    assert response.context["tag"] == tag

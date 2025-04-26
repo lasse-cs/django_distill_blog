@@ -1,0 +1,13 @@
+{% for article in articles %}
+    <article>
+        <header>
+            <a href="{{ article.get_absolute_url }}">
+                <h2>{{ article.title }}</h2>
+            </a>
+        </header>
+        <p>{{ article.content }}</p>
+        <footer>
+            {% include 'blog/includes/tags.html' with tags=article.tags.all %}
+        </footer>
+    </article>
+{% endfor %}
