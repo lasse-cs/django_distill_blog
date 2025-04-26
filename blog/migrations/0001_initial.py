@@ -4,41 +4,39 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='NavPage',
+            name="NavPage",
             fields=[
-                ('slug', models.SlugField(primary_key=True, serialize=False)),
-                ('title', models.CharField(max_length=50)),
-                ('content', models.TextField()),
+                ("slug", models.SlugField(primary_key=True, serialize=False)),
+                ("title", models.CharField(max_length=50)),
+                ("content", models.TextField()),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Tag',
+            name="Tag",
             fields=[
-                ('slug', models.SlugField(primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=50)),
+                ("slug", models.SlugField(primary_key=True, serialize=False)),
+                ("name", models.CharField(max_length=50)),
             ],
         ),
         migrations.CreateModel(
-            name='Article',
+            name="Article",
             fields=[
-                ('slug', models.SlugField(primary_key=True, serialize=False)),
-                ('title', models.CharField(max_length=50)),
-                ('content', models.TextField()),
-                ('tags', models.ManyToManyField(blank=True, to='blog.tag')),
+                ("slug", models.SlugField(primary_key=True, serialize=False)),
+                ("title", models.CharField(max_length=50)),
+                ("content", models.TextField()),
+                ("tags", models.ManyToManyField(blank=True, to="blog.tag")),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
     ]
