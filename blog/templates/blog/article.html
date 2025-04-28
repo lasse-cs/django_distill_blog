@@ -5,7 +5,12 @@
 {% block main-content %}
     <article>
         <header>
-            <h1>{{ article.title }}</h1>
+            <hgroup>
+                <h1>{{ article.title }}</h1>
+                <address>
+                    <p>{{ article.author.name }}</p>
+                </address>
+            </hgroup>
         </header>
         <p>{{ article.content }}</p>
         <footer>

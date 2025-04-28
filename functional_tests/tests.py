@@ -18,16 +18,21 @@ def test_index_page(page, server_url, articles):
     article_list = page.get_by_role("article")
     expect(article_list).to_have_count(len(articles))
     for article in articles:
+        article_element = article_list.filter(has_text=article.title)
         # Each article has a title
-        title = article_list.get_by_role("heading", name=article.title)
+        title = article_element.get_by_role("heading", name=article.title)
         expect(title).to_be_visible()
 
+        # Each article has an author
+        author = article_element.get_by_text(article.author.name)
+        expect(author).to_be_visible()
+
         # Each article has a content
-        content = article_list.get_by_text(article.content)
+        content = article_element.get_by_text(article.content)
         expect(content).to_be_visible()
 
         # Each article has a link to the article
-        link = article_list.get_by_role("link", name=article.title)
+        link = article_element.get_by_role("link", name=article.title)
         expect(link).to_be_visible()
 
     # Clicking on the title of an article takes him to a dedicated page for the
@@ -40,6 +45,10 @@ def test_index_page(page, server_url, articles):
     expect(page).to_have_title(re.compile(first_article.title))
     title = page.get_by_role("heading", name=first_article.title)
     expect(title).to_be_visible()
+
+    # The article page has the author of the article
+    author = page.get_by_text(first_article.author.name)
+    expect(author).to_be_visible()
 
     # The article page has the content of the article
     content = page.get_by_text(first_article.content)

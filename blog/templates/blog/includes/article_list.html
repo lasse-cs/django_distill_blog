@@ -1,9 +1,12 @@
 {% for article in articles %}
     <article>
         <header>
-            <a href="{{ article.get_absolute_url }}">
-                <h2>{{ article.title }}</h2>
-            </a>
+            <hgroup>
+                <a href="{{ article.get_absolute_url }}">
+                    <h2>{{ article.title }}</h2>
+                </a>
+                <p>{{ article.author.name }}</p>
+            </hgroup>
         </header>
         <p>{{ article.content }}</p>
         <footer>

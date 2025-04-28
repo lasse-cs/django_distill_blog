@@ -1,16 +1,18 @@
 import pytest
 
-from blog.models import Article, NavPage, Tag
+from blog.models import Article, Author, NavPage, Tag
 
 
 @pytest.fixture
 def articles(transactional_db):
     articles = []
+    author = Author.objects.create(name="Author")
     for i in range(5):
         article = Article.objects.create(
             slug=f"slug-{i}",
             title=f"Article {i}",
             content=f"Content of article {i}",
+            author=author,
         )
         articles.append(article)
     return articles

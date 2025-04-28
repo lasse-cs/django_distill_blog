@@ -1,53 +1,55 @@
 import pytest
 from django.core.exceptions import ValidationError
-from blog.models import Article, NavPage, Tag
+from blog.models import Article, Author, NavPage, Tag
 
 
 pytestmark = pytest.mark.django_db
 
 
-def test_article_model():
+def test_article_model(author):
     """
     Test the basic properties of the article model.
     """
-    article = Article.objects.create(slug="slug", title="Title", content="Content")
+    article = Article.objects.create(
+        slug="slug", title="Title", content="Content", author=author
+    )
     assert article.slug == "slug"
     assert article.title == "Title"
     assert article.content == "Content"
+    assert article.author == author
 
 
-def test_article_title_required():
+def test_article_title_required(article):
     """
     Test that the article title is required
     """
-    article = Article(slug="slug", title="", content="Content")
+    article.title = ""
     with pytest.raises(ValidationError):
         article.full_clean()
 
 
-def test_article_content_required():
+def test_article_content_required(article):
     """
     Test that the article content is required
     """
-    article = Article(slug="slug", title="Title", content="")
+    article.content = ""
     with pytest.raises(ValidationError):
         article.full_clean()
 
 
-def test_article_slug_required():
+def test_article_slug_required(article):
     """
     Test that the article slug is required
     """
-    article = Article(slug="", title="Title", content="Content")
+    article.slug = ""
     with pytest.raises(ValidationError):
         article.full_clean()
 
 
-def test_article_get_absolute_url():
+def test_article_get_absolute_url(article):
     """
     Test the get_absolute_url method of the article model.
     """
-    article = Article.objects.create(slug="slug", title="Title", content="Content")
     assert article.get_absolute_url() == f"/article/{article.slug}.html"
 
 
@@ -70,65 +72,69 @@ def test_tag_model():
     assert tag.name == "Tag"
 
 
-def test_tag_get_absolute_url():
+def test_tag_get_absolute_url(tag):
     """
     Test the get_absolute_url method of the tag model.
     """
-    tag = Tag.objects.create(slug="tag", name="Tag")
     assert tag.get_absolute_url() == f"/tag/{tag.slug}.html"
 
 
-def test_tag_slug_required():
+def test_tag_slug_required(tag):
     """
     Test that the tag slug is required
     """
-    tag = Tag(slug="", name="Tag")
+    tag.slug = ""
     with pytest.raises(ValidationError):
         tag.full_clean()
 
 
-def test_tag_name_required():
+def test_tag_name_required(tag):
     """
     Test that the tag name is required
     """
-    tag = Tag(slug="tag", name="")
+    tag.name = ""
     with pytest.raises(ValidationError):
         tag.full_clean()
 
 
-def test_tag_can_tag_multiple_articles():
+def test_tag_can_tag_multiple_articles(tag, article, article2):
     """
     Test that a tag can be associated with multiple articles.
     """
-    article1 = Article.objects.create(
-        slug="slug1", title="Title 1", content="Content 1"
-    )
-    article2 = Article.objects.create(
-        slug="slug2", title="Title 2", content="Content 2"
-    )
-
-    tag = Tag.objects.create(slug="tag", name="Tag")
-
-    tag.article_set.add(article1, article2)
+    tag.article_set.add(article, article2)
     tag.save()
 
     tag.refresh_from_db()
     assert tag.article_set.count() == 2
-    assert article1 in tag.article_set.all()
+    assert article in tag.article_set.all()
     assert article2 in tag.article_set.all()
 
 
-def test_article_can_have_tags():
+def test_article_can_have_tags(tag, tag2, article):
     """
     Test that an article can have tags.
     """
-    article = Article.objects.create(slug="slug", title="Title", content="Content")
-    tag1 = Tag.objects.create(slug="tag1", name="Tag 1")
-    tag2 = Tag.objects.create(slug="tag2", name="Tag 2")
-    article.tags.add(tag1, tag2)
+    article.tags.add(tag, tag2)
     article.save()
 
     article.refresh_from_db()
     assert article.tags.count() == 2
-    assert tag1 in article.tags.all()
+    assert tag in article.tags.all()
     assert tag2 in article.tags.all()
+
+
+def test_author_model():
+    """
+    Test the basic properties of the author model.
+    """
+    author = Author.objects.create(name="Author")
+    assert author.name == "Author"
+
+
+def test_author_name_required(author):
+    """
+    Test that the author name is required
+    """
+    author.name = ""
+    with pytest.raises(ValidationError):
+        author.full_clean()
