@@ -1,7 +1,12 @@
+from pathlib import Path
 import pytest
 import os
 
+import http.server
+import threading
 
+
+from django.conf import settings
 from django.core.management import call_command
 
 
@@ -12,9 +17,17 @@ os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 
 @pytest.fixture(scope="session")
 def server_url():
-    # In future, might be nice to autolaunch the server here
-    # currently it is launched with something like `uv run -m http.server 8080 -d ./output/`
-    return "http://localhost:8080/"
+    class CustomHandler(http.server.SimpleHTTPRequestHandler):
+        def __init__(self, request, client_address, server):
+            directory = Path(settings.DISTILL_DIR)
+            super().__init__(request, client_address, server, directory=directory)
+
+    port = 8082
+    httpd = http.server.HTTPServer(("", port), CustomHandler)
+    thread = threading.Thread(target=httpd.serve_forever)
+    thread.start()
+    yield f"http://localhost:{port}/"
+    httpd.shutdown()
 
 
 @pytest.fixture(scope="session")
@@ -22,5 +35,5 @@ def collect_static():
     call_command("collectstatic", "--no-input", "--clear")
 
 
-def pytest_runtest_call(item):
+def pytest_runtest_call():
     call_command("distill-local", "--quiet", "--force")
