@@ -1,5 +1,9 @@
 import re
 from playwright.sync_api import expect
+import pytest
+
+
+pytestmark = pytest.mark.django_db
 
 
 def test_index_page(page, server_url, articles):
