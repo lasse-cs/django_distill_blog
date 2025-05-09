@@ -11,7 +11,7 @@ def articles(transactional_db):
         article = Article.objects.create(
             slug=f"slug-{i}",
             title=f"Article {i}",
-            content=f"Content of article {i}",
+            content=f"Content of article {i}, with some **markdown**.",
             author=author,
         )
         articles.append(article)
@@ -50,4 +50,15 @@ def about_page(transactional_db):
         slug="about",
         title="About",
         content="This is the about page.",
+    )
+
+
+@pytest.fixture
+def markdown_article(transactional_db):
+    author = Author.objects.create(name="Author")
+    return Article.objects.create(
+        slug="markdown-article",
+        title="Markdown Article",
+        content="This is a **markdown** article.",
+        author=author,
     )

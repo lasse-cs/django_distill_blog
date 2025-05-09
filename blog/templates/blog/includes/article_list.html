@@ -1,3 +1,4 @@
+{% load blog_tags %}
 {% for article in articles %}
     <article>
         <header>
@@ -8,7 +9,7 @@
                 <p>{{ article.author.name }}</p>
             </hgroup>
         </header>
-        <p>{{ article.content }}</p>
+        {{ article.content|markdown }}
         <footer>
             {% include 'blog/includes/tags.html' with tags=article.tags.all %}
         </footer>

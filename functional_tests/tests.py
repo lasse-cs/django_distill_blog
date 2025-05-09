@@ -31,10 +31,6 @@ def test_index_page(page, server_url, articles):
         author = article_element.get_by_text(article.author.name)
         expect(author).to_be_visible()
 
-        # Each article has a content
-        content = article_element.get_by_text(article.content)
-        expect(content).to_be_visible()
-
         # Each article has a link to the article
         link = article_element.get_by_role("link", name=article.title)
         expect(link).to_be_visible()
@@ -53,10 +49,6 @@ def test_index_page(page, server_url, articles):
     # The article page has the author of the article
     author = page.get_by_text(first_article.author.name)
     expect(author).to_be_visible()
-
-    # The article page has the content of the article
-    content = page.get_by_text(first_article.content)
-    expect(content).to_be_visible()
 
     # There is a navbar
     navbar = page.get_by_role("navigation", name="Main Navigation")
@@ -157,10 +149,6 @@ def test_tags(page, server_url, tagged_articles):
         title = article_list.get_by_role("heading", name=article.title)
         expect(title).to_be_visible()
 
-        # Each article has a content
-        content = article_list.get_by_text(article.content)
-        expect(content).to_be_visible()
-
     # The page has a link to the index page
     index_link = page.get_by_role("link", name="Blog")
     expect(index_link).to_be_visible()
@@ -183,3 +171,25 @@ def test_tags(page, server_url, tagged_articles):
     # The tag page has a heading with the name of the tag
     title = page.get_by_role("heading", name=f'Articles tagged "{first_tag.name}"')
     expect(title).to_be_visible()
+
+
+def test_markdown_article(page, server_url, markdown_article):
+    # L goes to visit the blog page
+    page.goto(server_url)
+
+    # He sees that the articles have markdown
+    article_list = page.get_by_role("article")
+    article_element = article_list.filter(has_text=markdown_article.title)
+
+    # He can find the marked up content in the article
+    marked_up = article_element.locator("strong")
+    expect(marked_up).to_have_text("markdown")
+
+    # He can also find the marked up content in the article page
+    article_link = page.get_by_role("link", name=markdown_article.title)
+    article_link.click()
+
+    # The article page has the title of the article
+    expect(page).to_have_title(re.compile(markdown_article.title))
+    marked_up = page.get_by_role("article").locator("strong")
+    expect(marked_up).to_have_text("markdown")

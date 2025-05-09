@@ -1,4 +1,5 @@
 {% extends 'blog/base.html' %}
+{% load blog_tags %}
 {% block title %}
     {{ article.title }}
 {% endblock title %}
@@ -12,7 +13,7 @@
                 </address>
             </hgroup>
         </header>
-        <p>{{ article.content }}</p>
+        {{ article.content|markdown }}
         <footer>
             {% include 'blog/includes/tags.html' with tags=article.tags.all %}
         </footer>
