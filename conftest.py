@@ -49,7 +49,7 @@ def about_page(transactional_db):
     return NavPage.objects.create(
         slug="about",
         title="About",
-        content="This is the about page.",
+        content="This is the about page, with **markdown** content.",
     )
 
 

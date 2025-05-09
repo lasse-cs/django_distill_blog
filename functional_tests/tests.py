@@ -193,3 +193,12 @@ def test_markdown_article(page, server_url, markdown_article):
     expect(page).to_have_title(re.compile(markdown_article.title))
     marked_up = page.get_by_role("article").locator("strong")
     expect(marked_up).to_have_text("markdown")
+
+
+def test_markdown_navpage(page, server_url, about_page):
+    # L goes to visit the about page
+    page.goto(server_url + about_page.get_absolute_url())
+
+    # He can find the marked up content in the article
+    marked_up = page.locator("strong")
+    expect(marked_up).to_have_text("markdown")
