@@ -16,7 +16,7 @@ os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 
 
 @pytest.fixture(scope="session")
-def server_url():
+def server_url(collect_static):
     class CustomHandler(http.server.SimpleHTTPRequestHandler):
         def __init__(self, request, client_address, server):
             directory = Path(settings.DISTILL_DIR)
