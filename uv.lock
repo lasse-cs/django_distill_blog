@@ -542,7 +542,7 @@ dev = [
     { name = "pytest-django" },
     { name = "ruff" },
 ]
-functional-test = [
+functional-tests = [
     { name = "playwright" },
     { name = "pytest-playwright" },
 ]
@@ -562,7 +562,7 @@ dev = [
     { name = "pytest-django", specifier = ">=4.11.1" },
     { name = "ruff", specifier = ">=0.11.6" },
 ]
-functional-test = [
+functional-tests = [
     { name = "playwright", specifier = ">=1.52.0" },
     { name = "pytest-playwright", specifier = ">=0.7.0" },
 ]

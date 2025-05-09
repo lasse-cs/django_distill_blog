@@ -1,0 +1,28 @@
+name: Playwright Test
+on: [ push, pull_request ]
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ".python-version"
+
+      - name: Install
+        run: uv sync --locked --all-extras --dev --group=functional-tests
+
+      - name: Ensure browsers are installed
+        run: uv run -m playwright install --with-deps --no-shell chromium
+
+      - name: Test
+        env:
+          CI: True
+        run: uv run pytest functional_tests --browser chromium
