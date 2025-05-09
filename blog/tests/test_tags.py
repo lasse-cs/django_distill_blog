@@ -1,6 +1,6 @@
 import pytest
 from blog.models import NavPage
-from blog.templatetags.nav import nav_bar
+from blog.templatetags.blog_tags import nav_bar
 
 
 @pytest.fixture
