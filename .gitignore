@@ -14,5 +14,7 @@ wheels/
 
 # Database
 db.sqlite3
+
 output/
 static_output/
+.coverage

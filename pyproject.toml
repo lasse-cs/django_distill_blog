@@ -15,10 +15,14 @@ python_files = ["test_*.py", "*_test.py", "tests.py"]
 
 [dependency-groups]
 dev = [
+    "coverage>=7.8.0",
     "djlint>=1.36.4",
-    "playwright>=1.51.0",
     "pytest>=8.3.5",
+    "pytest-cov>=6.1.1",
     "pytest-django>=4.11.1",
-    "pytest-playwright>=0.7.0",
     "ruff>=0.11.6",
+]
+functional-test = [
+    "playwright>=1.52.0",
+    "pytest-playwright>=0.7.0",
 ]

@@ -1,0 +1,24 @@
+name: Test
+on: [ push, pull_request ]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ".python-version"
+
+      - name: Install
+        run: uv sync --locked --all-extras --dev
+
+      - name: Test
+        env:
+          CI: True
+        run: uv run pytest --ignore=functional_tests --cov=distill_blog --cov=blog --cov-fail-under=80
