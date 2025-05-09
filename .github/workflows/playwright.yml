@@ -20,7 +20,7 @@ jobs:
         run: uv sync --locked --all-extras --dev --group=functional-tests
 
       - name: Ensure browsers are installed
-        run: uv run -m playwright install --with-deps --no-shell chromium
+        run: uv run -m playwright install --with-deps chromium
 
       - name: Test
         env:
