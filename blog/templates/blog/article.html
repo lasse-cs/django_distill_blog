@@ -13,7 +13,9 @@
                 </address>
             </hgroup>
         </header>
-        {{ article.content|markdown }}
+        <section>
+            {{ article.content|markdown }}
+        </section>
         <footer>
             {% include 'blog/includes/tags.html' with tags=article.tags.all %}
         </footer>
