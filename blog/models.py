@@ -19,10 +19,16 @@ class Article(Page):
     def get_absolute_url(self):
         return reverse("article", args=[self.slug])
 
+    def __str__(self):
+        return f"{self.title} - {self.author.name}"
+
 
 class NavPage(Page):
     def get_absolute_url(self):
         return reverse("nav_page", args=[self.slug])
+
+    def __str__(self):
+        return self.title
 
 
 class Tag(models.Model):
@@ -32,6 +38,12 @@ class Tag(models.Model):
     def get_absolute_url(self):
         return reverse("tag", args=[self.slug])
 
+    def __str__(self):
+        return self.name
+
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
