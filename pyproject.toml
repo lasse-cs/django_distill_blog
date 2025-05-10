@@ -14,6 +14,11 @@ dependencies = [
 DJANGO_SETTINGS_MODULE="distill_blog.settings"
 python_files = ["test_*.py", "*_test.py", "tests.py"]
 
+[tool.ruff]
+exclude = [
+    "**/migrations/*.py",
+]
+
 [dependency-groups]
 dev = [
     "coverage>=7.8.0",
