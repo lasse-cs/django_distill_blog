@@ -6,6 +6,7 @@ class Page(models.Model):
     slug = models.SlugField(max_length=50, primary_key=True)
     title = models.CharField(max_length=50)
     content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         abstract = True

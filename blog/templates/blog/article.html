@@ -8,9 +8,9 @@
         <header>
             <hgroup>
                 <h1>{{ article.title }}</h1>
-                <address>
-                    <p>{{ article.author.name }}</p>
-                </address>
+                <p>
+                    <span>{{ article.author.name }}</span> - <span>{{ article.created_at|date:"F d, Y" }}</span>
+                </p>
             </hgroup>
         </header>
         <section>

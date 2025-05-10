@@ -114,6 +114,7 @@ class ArticleList:
 
         header_group = article_element.locator("hgroup")
         expect(header_group).to_contain_text(article.author.name)
+        expect(header_group).to_contain_text(article.created_at.strftime("%B %d, %Y"))
 
         article_link = article_element.get_by_role("link", name=article.title)
         expect(article_link).to_be_visible()
@@ -160,6 +161,11 @@ class ArticlePage:
 
         author = self.header_group.get_by_text(article.author.name)
         expect(author).to_be_visible()
+
+        created_at = self.header_group.get_by_text(
+            article.created_at.strftime("%B %d, %Y")
+        )
+        expect(created_at).to_be_visible()
 
         self.tag_list.expect_to_have_tags(article.tags.all())
 

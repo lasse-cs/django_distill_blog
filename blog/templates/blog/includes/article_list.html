@@ -6,7 +6,9 @@
                 <a href="{{ article.get_absolute_url }}">
                     <h2>{{ article.title }}</h2>
                 </a>
-                <p>{{ article.author.name }}</p>
+                <p>
+                    <span>{{ article.author.name }}</span> - <span>{{ article.created_at|date:"F d, Y" }}</span>
+                </p>
             </hgroup>
         </header>
         <section>
