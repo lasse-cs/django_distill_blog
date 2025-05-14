@@ -11,7 +11,7 @@ class Navbar:
         index_link = self.locator.get_by_role("link", name="Blog")
         expect(index_link).to_be_visible()
         index_link.click()
-        return ArticleListPage(self.page)
+        return IndexPage(self.page)
 
     def go_to_nav_page(self, nav_page):
         nav_page_link = self.locator.get_by_role("link", name=nav_page.title)
@@ -23,7 +23,7 @@ class Navbar:
         expect(self.locator).to_be_visible()
 
 
-class ArticleListPage:
+class IndexPage:
     def __init__(self, page):
         self.page = page
         self.heading = page.get_by_role("heading", name="All Articles")
