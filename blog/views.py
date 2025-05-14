@@ -4,7 +4,8 @@ from blog.models import Article, NavPage, Tag
 
 def index(request):
     articles = Article.objects.all()
-    return render(request, "blog/index.html", {"articles": articles})
+    tags = Tag.objects.all()
+    return render(request, "blog/index.html", {"articles": articles, "tags": tags})
 
 
 def article(request, slug):

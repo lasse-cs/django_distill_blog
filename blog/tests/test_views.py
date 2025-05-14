@@ -26,6 +26,17 @@ def test_index_view_has_all_articles_in_context(client, articles):
         assert article in response.context["articles"]
 
 
+def test_index_view_has_all_tags_in_context(client, tags):
+    """
+    Test that the index view has all tags for articles in its context.
+    """
+    response = client.get("/")
+    assert "tags" in response.context
+    assert len(response.context["tags"]) == len(tags)
+    for tag in tags:
+        assert tag in response.context["tags"]
+
+
 def test_article_view_uses_correct_template(client, article):
     """
     Test that the article view can be reached.

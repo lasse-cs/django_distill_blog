@@ -4,3 +4,10 @@
     <hr>
     {% include 'blog/includes/article_list.html' with articles=articles %}
 {% endblock main-content %}
+{% block aside %}
+    <aside class="grid">
+        <aside>
+            {% include 'blog/includes/tag_cloud.html' with tags=tags %}
+        </aside>
+    </aside>
+{% endblock aside %}

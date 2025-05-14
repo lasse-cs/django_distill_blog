@@ -45,13 +45,27 @@ def test_main_navigation(page, server_url, about_page):
     index_page.expect_to_be_loaded()
 
 
-def test_tags(page, server_url, tagged_articles):
+def test_tags(page, server_url, tagged_articles, tags):
     # L goes to visit the blog page
     page.goto(server_url)
 
     # He lands on the list page of articles
     index_page = IndexPage(page)
     index_page.expect_to_be_loaded()
+
+    # He can see that there is a tag cloud on the side
+    # The tag cloud contains all the tags
+    index_page.tag_cloud.expect_to_have_tags(tags)
+    index_page.tag_cloud.expect_to_have_length(len(tags))
+
+    # He can click on a tag in the tag cloud
+    # and be taken to the tag page
+    first_tag = tags[0]
+    tag_page = index_page.tag_cloud.visit_tag(first_tag)
+    tag_page.expect_to_be_for_tag(first_tag)
+
+    # From the tag page, he can go back to the index page
+    index_page = tag_page.navbar.go_to_index()
 
     # He can click on a tag in the article list
     # and be taken to the tag page

@@ -33,6 +33,8 @@ class IndexPage:
 
         article_list_locator = page.get_by_role("main")
         self.article_list = ArticleList(page, article_list_locator)
+        aside_locator = page.get_by_role("navigation", name="Tag Cloud")
+        self.tag_cloud = TagList(aside_locator)
 
     def expect_to_have_articles(self, articles):
         self.article_list.expect_to_have_length(len(articles))
@@ -43,6 +45,7 @@ class IndexPage:
         self.navbar.expect_to_be_visible()
         expect(self.page).to_have_title(re.compile("Blog"))
         expect(self.heading).to_be_visible()
+        self.tag_cloud.expect_to_be_visible()
 
     def visit_article(self, article):
         return self.article_list.visit_article(article)
@@ -56,7 +59,11 @@ class IndexPage:
 
 class TagList:
     def __init__(self, locator):
+        self.locator = locator
         self.tag_locators = locator.get_by_role("listitem")
+
+    def expect_to_be_visible(self):
+        expect(self.locator).to_be_visible()
 
     def expect_to_have_length(self, length):
         expect(self.tag_locators).to_have_count(length)
