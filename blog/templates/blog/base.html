@@ -10,16 +10,25 @@
             {% endblock title %}
         </title>
         <link rel="stylesheet" href="{% static 'css/pico.pumpkin.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
     </head>
-    <body>
+    <body class="container">
         {% block header %}
-            <header class="container">
+            <header>
                 {% nav_bar %}
             </header>
         {% endblock header %}
-        <main class="container">
-            {% block main-content %}
-            {% endblock main-content %}
-        </main>
+        <div class="main-aside">
+            <main>
+                {% block main-content %}
+                {% endblock main-content %}
+            </main>
+            {% block aside %}
+            {% endblock aside %}
+        </div>
+        <footer>
+            {% block footer %}
+            {% endblock footer %}
+        </footer>
     </body>
 </html>

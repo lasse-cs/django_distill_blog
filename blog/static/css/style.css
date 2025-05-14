@@ -1,0 +1,11 @@
+@media (min-width: 768px) {
+    .main-aside {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: 2fr 1fr;
+    }
+
+    .main-aside:has(> :only-child) {
+        grid-template-columns: 1fr;
+    }
+}
