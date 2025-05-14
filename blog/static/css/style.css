@@ -10,8 +10,13 @@
     }
 }
 
-.tag-cloud ul {
+.tag-list {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    padding-inline-start: 0;
+}
+
+.tag-list li {
+    list-style: none;
 }

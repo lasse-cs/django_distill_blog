@@ -1,6 +1,6 @@
 <nav class="tag-cloud" aria-labelledby="tag-cloud-header">
     <h3 id="tag-cloud-header">Tag Cloud</h3>
-    <ul>
+    <ul class="tag-list">
         {% for tag in tags %}
             <li>
                 <a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
