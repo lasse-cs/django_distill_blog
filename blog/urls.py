@@ -1,4 +1,3 @@
-from django.conf import settings
 from django_distill import distill_path
 from blog import views
 from blog.models import Article, NavPage, Tag

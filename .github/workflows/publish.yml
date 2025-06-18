@@ -36,7 +36,7 @@ jobs:
         id: upload
         uses: actions/upload-pages-artifact@v3
         with:
-          path: distill-output/${{ vars.SITE_ROOT}}
+          path: distill-output/${{ vars.SITE_ROOT }}
     
   deploy:
     permissions:
