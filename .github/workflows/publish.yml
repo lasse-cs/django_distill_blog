@@ -22,14 +22,26 @@ jobs:
       - name: Install
         run: uv sync --locked --all-extras --dev
 
-      - name: Build
+      - name: Load Data
         run: |
           uv run manage.py migrate
           uv run manage.py loaddata data.json
-          uv run manage.py distill-local distill-output/ --collectstatic --force
+      
+      - name: Distill
+        run: uv run manage.py distill-local distill-output/ --force --exclude-staticfiles
+        env: 
+          SITE_URL: ${{ vars.SITE_URL }}
+
+      - name: Static files
+        run: |
+          mkdir -p ${{ env.STATIC_ROOT }}
+          uv run manage.py collectstatic -i admin/
+        env:
+          STATIC_ROOT: distill-output/static/
+
 
       - name: Upload as Artifact
-        id: deployment
+        id: upload
         uses: actions/upload-pages-artifact@v3
         with:
           path: distill-output/
@@ -40,7 +52,7 @@ jobs:
       id-token: write
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deploy.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
     steps:
