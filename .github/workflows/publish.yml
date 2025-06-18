@@ -26,7 +26,7 @@ jobs:
         run: |
           uv run manage.py migrate
           uv run manage.py loaddata data.json
-          uv run distill-local distill-output/ --force
+          uv run manage.py distill-local distill-output/ --force
 
       - name: Upload as Artifact
         id: deployment
