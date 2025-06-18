@@ -28,23 +28,15 @@ jobs:
           uv run manage.py loaddata data.json
       
       - name: Distill
-        run: uv run manage.py distill-local distill-output/ --force --exclude-staticfiles
+        run: uv run manage.py distill-local distill-output/ --force --collectstatic
         env: 
           SITE_ROOT: ${{ vars.SITE_ROOT }}
-
-      - name: Static files
-        run: |
-          mkdir -p ${{ env.STATIC_ROOT }}
-          uv run manage.py collectstatic -i admin/
-        env:
-          STATIC_ROOT: distill-output/static/
-
 
       - name: Upload as Artifact
         id: upload
         uses: actions/upload-pages-artifact@v3
         with:
-          path: distill-output/
+          path: distill-output/${{ vars.SITE_ROOT}}
     
   deploy:
     permissions:

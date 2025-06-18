@@ -117,11 +117,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = os.getenv("SITE_ROOT", "") + "static/"
-if os.getenv("STATIC_ROOT"):
-    STATIC_ROOT = Path(os.getenv("STATIC_ROOT"))
-else:
-    STATIC_ROOT = BASE_DIR / "static"
+STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "static_output"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -129,3 +126,5 @@ else:
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 DISTILL_DIR = BASE_DIR / "output"
+
+FORCE_SCRIPT_NAME = os.getenv("SITE_ROOT")

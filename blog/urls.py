@@ -1,3 +1,4 @@
+from django.conf import settings
 from django_distill import distill_path
 from blog import views
 from blog.models import Article, NavPage, Tag
@@ -31,7 +32,7 @@ def get_all_nav_pages():
 
 
 urlpatterns = [
-    distill_path("", views.index, name="index", distill_file="index.html"),
+    distill_path("", views.index, name="index"),
     distill_path(
         "article/<slug:slug>.html",
         views.article,
