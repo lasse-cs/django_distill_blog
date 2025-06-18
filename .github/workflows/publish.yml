@@ -30,7 +30,7 @@ jobs:
       - name: Distill
         run: uv run manage.py distill-local distill-output/ --force --exclude-staticfiles
         env: 
-          SITE_URL: ${{ vars.SITE_URL }}
+          SITE_URL: ${{ vars.SITE_ROOT }}
 
       - name: Static files
         run: |
