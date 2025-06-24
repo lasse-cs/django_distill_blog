@@ -18,6 +18,7 @@ def test_article_model(author):
     assert article.content == "Content"
     assert article.author == author
     assert article.created_at is not None
+    assert article.updated_at is not None
 
 
 def test_article_model_str(article):
@@ -67,6 +68,7 @@ def test_nav_page_model():
     assert nav_page.title == "Title"
     assert nav_page.content == "Content"
     assert nav_page.created_at is not None
+    assert nav_page.updated_at is not None
 
 
 def test_nav_page_model_str(nav_page):

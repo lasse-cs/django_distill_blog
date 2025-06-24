@@ -1,37 +1,38 @@
 [
-{
-    "model": "blog.article",
-    "pk": "another-great-article",
-    "fields": {
-        "title": "Another Great Article",
-        "content": "lorem something",
-        "created_at": "2025-05-10T18:30:26.082Z",
-        "author": 1,
-        "tags": [
-            "tag1",
-            "tag2"
-        ]
+    {
+        "model": "blog.article",
+        "pk": "another-great-article",
+        "fields": {
+            "title": "Another Great Article",
+            "content": "lorem something",
+            "created_at": "2025-05-10T18:30:26.082Z",
+            "updated_at": "2025-06-24T20:27:58.392Z",
+            "author": 1,
+            "tags": [
+                "tag1",
+                "tag2"
+            ]
+        }
+    },
+    {
+        "model": "blog.tag",
+        "pk": "tag1",
+        "fields": {
+            "name": "tag1"
+        }
+    },
+    {
+        "model": "blog.tag",
+        "pk": "tag2",
+        "fields": {
+            "name": "tag2"
+        }
+    },
+    {
+        "model": "blog.author",
+        "pk": 1,
+        "fields": {
+            "name": "Lasse Schmieding"
+        }
     }
-},
-{
-    "model": "blog.tag",
-    "pk": "tag1",
-    "fields": {
-        "name": "tag1"
-    }
-},
-{
-    "model": "blog.tag",
-    "pk": "tag2",
-    "fields": {
-        "name": "tag2"
-    }
-},
-{
-    "model": "blog.author",
-    "pk": 1,
-    "fields": {
-        "name": "Lasse Schmieding"
-    }
-}
 ]
